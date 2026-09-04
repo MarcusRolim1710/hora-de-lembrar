@@ -18,6 +18,12 @@ const startBtn = document.getElementById('startBtn');
 const waitingMsg = document.getElementById('waitingMsg');
 const copyBtn = document.getElementById('copyBtn');
 const leaveBtn = document.getElementById('leaveBtn');
+const lockBadge = document.getElementById('lockBadge');
+
+function refreshLockUI(hasPassword) {
+  if (!lockBadge) return;
+  lockBadge.classList.toggle('hidden', !hasPassword);
+}
 
 roomCodeDisplay.textContent = roomId;
 modeDisplay.textContent = mode === 'best-of-3' ? '🏆 Melhor de 3' : '⚡ Rodada Única';
@@ -85,8 +91,9 @@ leaveBtn.addEventListener('click', () => {
   window.location.href = '/lobby';
 });
 
-socket.on('rejoined', ({ players, hostId: h, mode: m, isHost }) => {
+socket.on('rejoined', ({ players, hostId: h, mode: m, isHost, hasPassword }) => {
   hostId = h;
+  refreshLockUI(hasPassword);
   if (m) {
     mode = m;
     sessionStorage.setItem('mode', m);

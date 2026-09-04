@@ -52,19 +52,56 @@
           <span>🎮</span> Criar Sala
         </button>
 
+        <label class="lock-toggle">
+          <input type="checkbox" id="lockCheck">
+          <span class="lock-slider">🔓</span>
+          <span class="lock-text">Proteger com senha (PIN 4 dígitos)</span>
+        </label>
+        <div id="pinCreateWrap" class="pin-create hidden">
+          <input
+            type="password"
+            id="createPin"
+            placeholder="PIN: 4 dígitos"
+            maxlength="4"
+            inputmode="numeric"
+            autocomplete="off"
+          >
+        </div>
+
         <div class="divider">ou</div>
 
         <div class="join-section">
           <h3>Entrar em uma sala</h3>
           <div class="join-input">
-            <input 
-              type="text" 
-              id="roomCode" 
-              placeholder="Código da sala" 
-              maxlength="4" 
+            <input
+              type="text"
+              id="roomCode"
+              placeholder="Código da sala"
+              maxlength="4"
               autocomplete="off"
             >
             <button id="joinBtn" class="btn btn-secondary">Entrar</button>
+          </div>
+        </div>
+
+        <!-- Modal PIN para salas com cadeado -->
+        <div id="pinModal" class="modal hidden">
+          <div class="modal-content">
+            <h2>🔒 Sala protegida</h2>
+            <p class="pin-room">Sala <strong id="pinRoomId">----</strong> — digite o PIN de 4 dígitos</p>
+            <input
+              type="password"
+              id="joinPin"
+              placeholder="••••"
+              maxlength="4"
+              inputmode="numeric"
+              autocomplete="off"
+            >
+            <div id="pinError" class="error-msg hidden"></div>
+            <div class="pin-actions">
+              <button id="pinCancelBtn" class="btn btn-ghost">Cancelar</button>
+              <button id="pinConfirmBtn" class="btn btn-primary">Entrar</button>
+            </div>
           </div>
         </div>
 

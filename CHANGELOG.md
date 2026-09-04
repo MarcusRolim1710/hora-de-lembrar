@@ -4,6 +4,13 @@ Todas as mudanças importantes deste projeto serão documentadas aqui.
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 versionamento [SemVer](https://semver.org/lang/pt-BR/): `MAJOR.MINOR.PATCH`.
 
+## [1.2.0] - 2026-09-04
+### Added
+- Senha de sala opcional: PIN de 4 dígitos ao criar (toggle 🔓/🔒 + campo numérico).
+- Lobby mostra cadeado nas salas protegidas; entrar exige PIN via modal (erro "Senha incorreta" sem vazar nada).
+- `list-rooms` inclui `hasPassword` (PIN nunca sai do servidor; guardado como SHA-256 + salt da sala, comparado com `timingSafeEqual`).
+- Badge "🔒 Sala protegida" na espera; membro que já entrou não precisa do PIN de novo no F5 (`rejoin-room`).
+
 ## [1.1.0] - 2026-09-04
 ### Added
 - Identidade "Hora de Lembrar!": mascote relógio-despertador sorridente (`icon.svg`), logo horizontal (`logo-hora-de-lembrar.svg`), fonte Baloo 2, tagline "Bora testar essa memória?".

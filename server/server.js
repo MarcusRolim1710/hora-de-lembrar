@@ -69,6 +69,30 @@ function normalizeRoomCode(code) {
   return String(code || '').trim().toUpperCase();
 }
 
+// ===== Senha da sala (PIN 4 dígitos, opcional) =====
+function normalizePin(pin) {
+  const s = String(pin ?? '').trim();
+  return /^\d{4}$/.test(s) ? s : null;
+}
+
+function hashPin(pin, roomId) {
+  return crypto.createHash('sha256').update(`${roomId}:${pin}`).digest();
+}
+
+function verifyPin(pin, room) {
+  if (!room.hasPassword) return true;
+  const clean = normalizePin(pin);
+  if (!clean || !room.passwordHash) return false;
+  try {
+    const candidate = hashPin(clean, room.id);
+    const expected = Buffer.from(room.passwordHash, 'hex');
+    if (candidate.length !== expected.length) return false;
+    return crypto.timingSafeEqual(candidate, expected);
+  } catch {
+    return false;
+  }
+}
+
 function publicPlayers(room) {
   return room.players.map(p => ({
     id: p.id,
@@ -121,11 +145,19 @@ function findRoomBySocket(socket) {
 io.on('connection', (socket) => {
   console.log(`✅ Jogador conectado: ${socket.id}`);
 
-  // Criar sala
-  socket.on('create-room', ({ playerName, mode }) => {
+  // Criar sala (senha opcional: PIN 4 dígitos)
+  socket.on('create-room', ({ playerName, mode, password }) => {
     const cleanName = String(playerName || '').trim().slice(0, 15);
     if (!cleanName || cleanName.length < 2) {
       return socket.emit('error', { message: 'Nome inválido' });
+    }
+    // PIN opcional: se enviado, deve ser exatamente 4 dígitos
+    let pin = null;
+    if (password !== undefined && password !== null && String(password).trim() !== '') {
+      pin = normalizePin(password);
+      if (!pin) {
+        return socket.emit('error', { message: 'Senha deve ter 4 dígitos (ex: 1234)' });
+      }
     }
     const roomId = generateUniqueRoomCode();
     const playerId = newPlayerId();
@@ -133,6 +165,8 @@ io.on('connection', (socket) => {
       id: roomId,
       hostId: playerId,
       mode: mode === 'best-of-3' ? 'best-of-3' : 'single',
+      hasPassword: !!pin,
+      passwordHash: pin ? hashPin(pin, roomId).toString('hex') : null,
       players: [{
         id: playerId,
         socketId: socket.id,
@@ -157,13 +191,14 @@ io.on('connection', (socket) => {
       playerId,
       players: publicPlayers(room),
       hostId: room.hostId,
+      hasPassword: room.hasPassword,
       isHost: true
     });
-    console.log(`🎮 Sala criada: ${roomId} por ${cleanName}`);
+    console.log(`🎮 Sala criada: ${roomId} por ${cleanName}${room.hasPassword ? ' 🔒' : ''}`);
   });
 
-  // Entrar em sala existente
-  socket.on('join-room', ({ roomId, playerName, playerId: existingPlayerId }) => {
+  // Entrar em sala existente (senha obrigatória se a sala tem cadeado)
+  socket.on('join-room', ({ roomId, playerName, playerId: existingPlayerId, password }) => {
     const code = normalizeRoomCode(roomId);
     const room = rooms.get(code);
     if (!room) {
@@ -173,7 +208,7 @@ io.on('connection', (socket) => {
       return socket.emit('error', { message: 'Jogo já iniciado' });
     }
 
-    // Rejoin com mesmo playerId (ex: refresh): só reativa
+    // Rejoin com mesmo playerId (ex: refresh): só reativa, sem pedir senha de novo
     if (existingPlayerId) {
       const existing = room.players.find(p => p.id === existingPlayerId);
       if (existing) {
@@ -184,6 +219,7 @@ io.on('connection', (socket) => {
           playerId: existing.id,
           players: publicPlayers(room),
           hostId: room.hostId,
+          hasPassword: !!room.hasPassword,
           isHost: room.hostId === existing.id
         });
         io.to(code).emit('player-joined', {
@@ -196,6 +232,11 @@ io.on('connection', (socket) => {
 
     if (room.players.length >= 4) {
       return socket.emit('error', { message: 'Sala cheia (máx 4)' });
+    }
+
+    // Senha antes de validar o nome (não vaza lista de nomes sem o PIN)
+    if (room.hasPassword && !verifyPin(password, room)) {
+      return socket.emit('error', { message: 'Senha incorreta' });
     }
 
     const cleanName = String(playerName || '').trim().slice(0, 15);
@@ -230,6 +271,7 @@ io.on('connection', (socket) => {
       playerId,
       players: publicPlayers(room),
       hostId: room.hostId,
+      hasPassword: !!room.hasPassword,
       isHost: false
     });
 
@@ -262,6 +304,7 @@ io.on('connection', (socket) => {
       playerId,
       players: publicPlayers(room),
       hostId: room.hostId,
+      hasPassword: !!room.hasPassword,
       isHost: room.hostId === playerId,
       started: room.started,
       currentRound: room.currentRound
@@ -333,7 +376,8 @@ io.on('connection', (socket) => {
         availableRooms.push({
           id,
           playerCount: room.players.length,
-          mode: room.mode
+          mode: room.mode,
+          hasPassword: !!room.hasPassword
         });
       }
     });
