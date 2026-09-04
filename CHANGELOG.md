@@ -4,6 +4,10 @@ Todas as mudanças importantes deste projeto serão documentadas aqui.
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 versionamento [SemVer](https://semver.org/lang/pt-BR/): `MAJOR.MINOR.PATCH`.
 
+## [1.2.2] - 2026-09-04
+### Fixed
+- PWA agora abre em tela cheia sem barras do navegador: `display: standalone` + `display_override: window-controls-overlay`, `orientation: any`, `id` e `launch_handler`, ícones `any`/`maskable` separados, `viewport-fit=cover`, `mobile-web-app-capable`/`apple-mobile-web-app-capable` em todas as páginas e cache `hora-de-lembrar-v2`. Desinstale e reinstale o app para aplicar (atalho precisa ser aberto pelo ícone instalado, não pela aba do Chrome).
+
 ## [1.2.1] - 2026-09-04
 ### Fixed
 - Ritmo competitivo: par errado desvira em ~200ms (antes ~1,4s parado).

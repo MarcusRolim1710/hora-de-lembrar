@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hora-de-lembrar-v1';
+const CACHE_NAME = 'hora-de-lembrar-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -15,9 +15,7 @@ const urlsToCache = [
   '/icons/icon.svg',
   '/icons/logo-hora-de-lembrar.svg',
   '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'
+  '/icons/icon-512.png'
 ];
 
 // Instalar Service Worker
