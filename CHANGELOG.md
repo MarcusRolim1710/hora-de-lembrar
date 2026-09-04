@@ -4,6 +4,13 @@ Todas as mudanças importantes deste projeto serão documentadas aqui.
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 versionamento [SemVer](https://semver.org/lang/pt-BR/): `MAJOR.MINOR.PATCH`.
 
+## [1.2.1] - 2026-09-04
+### Fixed
+- Ritmo competitivo: par errado desvira em ~200ms (antes ~1,4s parado).
+- Conferência no servidor 800ms → 200ms; trava de clique 1000ms → 350ms; removido delay extra de 600ms no client.
+- Animação de giro 0,5s → 0,25s e shake de erro encurtado (1 balanço, sem travar o ritmo).
+- Medido em teste local: 2º flip → `no-match` em 217ms.
+
 ## [1.2.0] - 2026-09-04
 ### Added
 - Senha de sala opcional: PIN de 4 dígitos ao criar (toggle 🔓/🔒 + campo numérico).

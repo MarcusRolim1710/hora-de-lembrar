@@ -17,12 +17,13 @@ const Animations = {
     });
   },
 
-  // Virar carta
+  // Virar carta (rápido, ritmo competitivo)
   flipCard(cardEl) {
     gsap.to(cardEl, {
       rotationY: 180,
-      duration: 0.5,
-      ease: 'power2.inOut'
+      duration: 0.25,
+      ease: 'power2.inOut',
+      overwrite: 'auto'
     });
   },
 
@@ -30,8 +31,9 @@ const Animations = {
   unflipCard(cardEl) {
     gsap.to(cardEl, {
       rotationY: 0,
-      duration: 0.5,
-      ease: 'power2.inOut'
+      duration: 0.25,
+      ease: 'power2.inOut',
+      overwrite: 'auto'
     });
   },
 
@@ -54,16 +56,18 @@ const Animations = {
     });
   },
 
-  // Erro (shake)
+  // Erro (shake curto, não trava o ritmo)
   matchError(cardEls) {
+    if (!cardEls || !cardEls.length) return;
     gsap.to(cardEls, {
       x: -8,
-      duration: 0.08,
+      duration: 0.06,
       yoyo: true,
-      repeat: 5,
+      repeat: 1,
       ease: 'power1.inOut',
+      overwrite: 'auto',
       onComplete: () => {
-        gsap.to(cardEls, { x: 0, duration: 0.1 });
+        gsap.to(cardEls, { x: 0, duration: 0.06, overwrite: 'auto' });
       }
     });
   },

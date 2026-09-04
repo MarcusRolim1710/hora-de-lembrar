@@ -428,10 +428,10 @@ io.on('connection', (socket) => {
 
     const flippedCards = player.board.filter(c => c.flipped && !c.matched);
 
-    // Se 2 cartas viradas, trava e agenda verificação
+    // Se 2 cartas viradas, trava e agenda verificação (ritmo rápido: ~200ms)
     if (flippedCards.length === 2) {
       player.locked = true;
-      setTimeout(() => checkMatch(room, player.id, code), 800);
+      setTimeout(() => checkMatch(room, player.id, code), 200);
     }
   });
 

@@ -122,8 +122,8 @@ function flipCard(index) {
   if (window.Animations) Animations.flipCard(boardEl.children[index]);
   socket.emit('flip-card', { roomId, playerId: myPlayerId, cardIndex: index });
 
-  // Reabilitar após 1s (servidor também tem lock)
-  setTimeout(() => { canFlip = true; }, 1000);
+  // Reabilitar rápido (servidor confere em ~200ms + folga da rede)
+  setTimeout(() => { canFlip = true; }, 350);
 }
 
 // ===== SOCKET EVENTS =====
@@ -169,14 +169,12 @@ socket.on('match-found', ({ pairs, board }) => {
 
 socket.on('no-match', ({ board }) => {
   if (board) {
-    myBoard = board;
-    const flippedCards = boardEl.querySelectorAll('.card.flipped:not(.matched)');
+    // Erro rápido: shake imediato e desvira sem delay extra (servidor já segurou ~200ms)
     if (window.Animations) {
-      setTimeout(() => {
-        Animations.matchError(Array.from(boardEl.querySelectorAll('.card.flipped:not(.matched)')));
-      }, 100);
+      Animations.matchError(Array.from(boardEl.querySelectorAll('.card.flipped:not(.matched)')));
     }
-    setTimeout(() => updateBoard(board), 600);
+    myBoard = board;
+    updateBoard(board);
   }
 });
 
