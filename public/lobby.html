@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#8b5cf6">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Hora de Lembrar! — Lobby</title>
+</head>
+<body>
+  <div class="container">
+    <div class="lobby-card">
+      <div class="brand-mini">
+        <img src="/icons/icon.svg" alt="Hora de Lembrar!" width="44" height="44">
+        <span>Hora de Lembrar!</span>
+      </div>
+      <div class="header">
+        <button id="backBtn" class="btn-icon">←</button>
+        <h2>Olá, <span id="playerNameDisplay"></span>! 👋</h2>
+      </div>
+
+      <div class="mode-selector">
+        <h3>Modo de jogo</h3>
+        <div class="mode-options">
+          <label class="mode-option">
+            <input type="radio" name="mode" value="single" checked>
+            <div class="mode-content">
+              <span class="mode-icon">⚡</span>
+              <strong>Rodada Única</strong>
+              <p>Quem terminar primeiro vence</p>
+            </div>
+          </label>
+
+          <label class="mode-option">
+            <input type="radio" name="mode" value="best-of-3">
+            <div class="mode-content">
+              <span class="mode-icon">🏆</span>
+              <strong>Melhor de 3</strong>
+              <p>Vence quem ganhar 2 rodadas</p>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="createBtn" class="btn btn-primary">
+          <span>🎮</span> Criar Sala
+        </button>
+
+        <div class="divider">ou</div>
+
+        <div class="join-section">
+          <h3>Entrar em uma sala</h3>
+          <div class="join-input">
+            <input 
+              type="text" 
+              id="roomCode" 
+              placeholder="Código da sala" 
+              maxlength="4" 
+              autocomplete="off"
+            >
+            <button id="joinBtn" class="btn btn-secondary">Entrar</button>
+          </div>
+        </div>
+
+        <div class="available-rooms">
+          <h3>Salas disponíveis</h3>
+          <div id="roomsList" class="rooms-list">
+            <p class="empty-msg">Nenhuma sala disponível</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/lobby.js"></script>
+</body>
+</html>

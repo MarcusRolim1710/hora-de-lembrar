@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#8b5cf6">
+  <meta name="description" content="Hora de Lembrar — jogo da memória multiplayer: quem termina primeiro, vence!">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Hora de Lembrar! — Entrar</title>
+</head>
+<body>
+  <div class="container">
+    <div class="login-card">
+      <div class="logo">
+        <img src="/icons/logo-hora-de-lembrar.svg" alt="Hora de Lembrar!" class="brand-logo" width="320" height="121">
+        <p class="subtitle">⏰ Bora testar essa memória? Quem termina primeiro, vence! 🧠</p>
+      </div>
+
+      <form id="loginForm" class="form">
+        <div class="input-group">
+          <label for="playerName">Seu nome</label>
+          <input 
+            type="text" 
+            id="playerName" 
+            placeholder="Digite seu nome..." 
+            maxlength="15" 
+            required 
+            autocomplete="off"
+          >
+        </div>
+
+        <div id="errorMsg" class="error-msg hidden"></div>
+
+        <button type="submit" class="btn btn-primary">
+          Continuar
+        </button>
+      </form>
+
+      <div class="footer">
+        <p>⏰ Até 4 jogadores • Multiplayer • 🧠 Hora de Lembrar!</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="/js/login.js"></script>
+  <script>
+    // Registrar Service Worker (PWA)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('✅ PWA registrado'))
+          .catch(err => console.warn('⚠️ PWA falhou:', err));
+      });
+    }
+  </script>
+</body>
+</html>

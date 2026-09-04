@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="55%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="cardA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <linearGradient id="cardB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#fb923c"/>
+    </linearGradient>
+    <radialGradient id="face" cx="50%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffe4e6"/>
+    </radialGradient>
+  </defs>
+
+  <!-- fundo -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <circle cx="90" cy="100" r="46" fill="#ffffff" opacity="0.12"/>
+  <circle cx="430" cy="420" r="60" fill="#ffffff" opacity="0.12"/>
+  <circle cx="440" cy="90" r="24" fill="#ffffff" opacity="0.18"/>
+
+  <!-- cartas do jogo atrás -->
+  <g transform="rotate(-14 150 330)">
+    <rect x="70" y="240" width="150" height="170" rx="26" fill="url(#cardA)" stroke="#ffffff" stroke-width="10"/>
+    <text x="145" y="360" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="86" font-weight="900" text-anchor="middle" fill="#ffffff">?</text>
+  </g>
+  <g transform="rotate(14 360 330)">
+    <rect x="288" y="240" width="150" height="170" rx="26" fill="url(#cardB)" stroke="#ffffff" stroke-width="10"/>
+    <!-- morango vetorial -->
+    <g transform="translate(363 315)">
+      <path d="M0 -34 C 26 -34 40 -16 40 4 C 40 30 20 52 0 62 C -20 52 -40 30 -40 4 C -40 -16 -26 -34 0 -34 Z" fill="#ef4444" stroke="#b91c1c" stroke-width="6" stroke-linejoin="round"/>
+      <g fill="#22c55e" stroke="#15803d" stroke-width="4" stroke-linejoin="round">
+        <path d="M0 -34 L -26 -52 L -10 -30 Z"/>
+        <path d="M0 -34 L 0 -58 L 12 -32 Z"/>
+        <path d="M0 -34 L 26 -52 L 10 -30 Z"/>
+      </g>
+      <circle cx="-12" cy="2" r="4" fill="#fecdd3"/>
+      <circle cx="8" cy="18" r="4" fill="#fecdd3"/>
+      <circle cx="-4" cy="34" r="4" fill="#fecdd3"/>
+    </g>
+  </g>
+
+  <!-- relógio-cérebro (mascote) -->
+  <g transform="translate(256 208)">
+    <!-- sininhos do despertador -->
+    <g fill="#fde047" stroke="#92400e" stroke-width="8" stroke-linejoin="round">
+      <circle cx="-86" cy="-72" r="26"/>
+      <circle cx="86" cy="-72" r="26"/>
+      <rect x="-108" y="-96" width="28" height="14" rx="7" transform="rotate(-30 -94 -89)"/>
+      <rect x="80" y="-96" width="28" height="14" rx="7" transform="rotate(30 94 -89)"/>
+    </g>
+    <!-- corpo do relógio -->
+    <circle r="118" fill="#1e1b4b"/>
+    <circle r="104" fill="url(#face)" stroke="#ffffff" stroke-width="6"/>
+    <!-- marcadores -->
+    <g fill="#8b5cf6">
+      <rect x="-8" y="-96" width="16" height="26" rx="8"/>
+      <rect x="-8" y="70" width="16" height="26" rx="8"/>
+      <rect x="-96" y="-8" width="26" height="16" rx="8"/>
+      <rect x="70" y="-8" width="26" height="16" rx="8"/>
+    </g>
+    <!-- ponteiros divertidos -->
+    <g stroke-linecap="round">
+      <line x1="0" y1="0" x2="-34" y2="-44" stroke="#8b5cf6" stroke-width="14"/>
+      <line x1="0" y1="0" x2="44" y2="-10" stroke="#ec4899" stroke-width="14"/>
+      <circle r="12" fill="#0f0f1a"/>
+      <circle r="5" fill="#fde047"/>
+    </g>
+    <!-- rostinho -->
+    <g>
+      <ellipse cx="-38" cy="38" rx="14" ry="11" fill="#ec4899" opacity="0.55"/>
+      <ellipse cx="38" cy="38" rx="14" ry="11" fill="#ec4899" opacity="0.55"/>
+      <circle cx="-38" cy="22" r="11" fill="#1e1b4b"/>
+      <circle cx="38" cy="22" r="11" fill="#1e1b4b"/>
+      <circle cx="-35" cy="19" r="4" fill="#fff"/>
+      <circle cx="41" cy="19" r="4" fill="#fff"/>
+      <path d="M -22 48 Q 0 66 22 48" fill="none" stroke="#1e1b4b" stroke-width="8" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- sparkles -->
+  <g fill="#ffffff">
+    <path d="M64 176 l7 18 18 7 -18 7 -7 18 -7 -18 -18 -7 18 -7 Z"/>
+    <path d="M448 176 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6 Z"/>
+    <path d="M418 452 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5 Z" opacity="0.9"/>
+    <path d="M94 452 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5 Z" opacity="0.9"/>
+  </g>
+  <g fill="#fde047">
+    <path d="M120 84 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5 Z"/>
+    <path d="M392 84 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5 Z"/>
+  </g>
+</svg>

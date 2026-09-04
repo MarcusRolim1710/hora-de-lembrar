@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#8b5cf6">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Hora de Lembrar! — Sala de Espera</title>
+</head>
+<body>
+  <div class="container">
+    <div class="waiting-card">
+      <div class="brand-mini brand-mini-center">
+        <img src="/icons/icon.svg" alt="Hora de Lembrar!" width="52" height="52">
+        <span>Hora de Lembrar!</span>
+      </div>
+      <div class="room-info">
+        <h2>Sala</h2>
+        <div class="room-code-display">
+          <span id="roomCodeDisplay">----</span>
+          <button id="copyBtn" class="btn-icon" title="Copiar código">📋</button>
+        </div>
+        <p class="mode-display" id="modeDisplay">Rodada Única</p>
+      </div>
+
+      <div class="players-section">
+        <h3>Jogadores (<span id="playerCount">0</span>/4)</h3>
+        <ul id="playersList" class="players-list">
+          <!-- Preenchido dinamicamente -->
+        </ul>
+      </div>
+
+      <div class="waiting-actions">
+        <button id="startBtn" class="btn btn-primary hidden">
+          🚀 Iniciar Jogo
+        </button>
+        <p id="waitingMsg" class="waiting-msg">Aguardando o host iniciar...</p>
+      </div>
+
+      <button id="leaveBtn" class="btn btn-ghost">Sair da sala</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/waiting.js"></script>
+</body>
+</html>
